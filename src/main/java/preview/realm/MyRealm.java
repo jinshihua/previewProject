@@ -3,6 +3,7 @@ package preview.realm;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 public class MyRealm extends AuthorizingRealm {
@@ -18,6 +19,7 @@ public class MyRealm extends AuthorizingRealm {
             throw new UnknownAccountException("用户名在系统中不存在！");
         }
         return new SimpleAuthenticationInfo(username,"123456",getName());
-
     }
+
+    Realm ream;
 }
