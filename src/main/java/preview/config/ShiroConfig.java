@@ -1,7 +1,6 @@
 package preview.config;
 
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
@@ -32,7 +31,7 @@ public class ShiroConfig {
 
     // 配置 SecurityManager, 并设置 SessionManager
     @Bean
-    public SecurityManager securityManager() {
+    public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(myRealm());
         manager.setSessionManager(sessionManager()); // 设置 SessionManager
