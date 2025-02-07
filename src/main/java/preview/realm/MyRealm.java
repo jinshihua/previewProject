@@ -5,6 +5,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
+import preview.pojo.User;
+import java.util.UUID;
 
 public class MyRealm extends AuthorizingRealm {
     @Override
@@ -19,8 +21,12 @@ public class MyRealm extends AuthorizingRealm {
         if(!"jinshihua".equals(username)){
             throw new UnknownAccountException("用户名在系统中不存在！");
         }
-        return new SimpleAuthenticationInfo(username,"123456",getName());
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword("123456");
+        String id = UUID.randomUUID().toString();
+        user.setId(id);
+        return new SimpleAuthenticationInfo(user,"123456",getName());
     }
-
     Realm ream;
 }
