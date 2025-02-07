@@ -15,6 +15,7 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String username = ((UsernamePasswordToken)token).getUsername();
+
         if(!"jinshihua".equals(username)){
             throw new UnknownAccountException("用户名在系统中不存在！");
         }
