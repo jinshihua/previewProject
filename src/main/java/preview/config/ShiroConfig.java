@@ -9,7 +9,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import preview.filter.ClientShiroThree;
+import preview.filter.JWTFilter;
 import preview.realm.MyRealm;
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -36,8 +36,11 @@ public class ShiroConfig {
 
     @Bean
     public SessionManager sessionManager() {
+
 //        return new NoOpSessionManager(); // 使用 NoOpSessionManager 禁用 Shiro Session
-        return new DefaultWebSessionManager();
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionValidationSchedulerEnabled(false);
+        return sessionManager;
     }
 
     @Bean
@@ -49,7 +52,6 @@ public class ShiroConfig {
         definition.addPathDefinition("/**", "client");  // 其他路径使用自定义过滤器
         return definition;
     }
-
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager sessionManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
@@ -58,7 +60,7 @@ public class ShiroConfig {
         shiroFilter.setUnauthorizedUrl("/");
         // 1. 配置自定义过滤器
         Map<String, Filter> filters = new LinkedHashMap<>();
-        filters.put("client", new ClientShiroThree());
+        filters.put("jwt", new JWTFilter());
         shiroFilter.setFilters(filters);
 
         // 2. 配置过滤器链
@@ -77,7 +79,7 @@ public class ShiroConfig {
         filterMap.put("/getBaseOrgSource", "anon");
         filterMap.put("/common/**", "anon");
         filterMap.put("/cadastre/**", "anon");
-        filterMap.put("/**", "client"); // 使用自定义过滤器
+        filterMap.put("/**", "jwt"); // 使用自定义过滤器
         shiroFilter.setFilterChainDefinitionMap(filterMap);
         return shiroFilter;
     }
