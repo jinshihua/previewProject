@@ -12,10 +12,6 @@ import preview.util.JWTUtils;
 import java.util.UUID;
 
 public class MyRealm extends AuthorizingRealm {
-    //    @Override
-//    public boolean supports(AuthenticationToken token) {
-//        return token instanceof JWTToken;
-//    }
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof UsernamePasswordToken || token instanceof JWTToken;

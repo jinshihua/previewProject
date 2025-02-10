@@ -21,10 +21,6 @@ public class ShiroConfig {
     MyRealm myRealm() {
         return new MyRealm();
     }
-//        @Bean
-//    public SessionManager sessionManager() {
-//        return new DefaultWebSessionManager();
-//    }
 
     @Bean// 配置 SecurityManager, 并设置 SessionManager
     public DefaultWebSecurityManager securityManager() {
@@ -49,7 +45,6 @@ public class ShiroConfig {
         DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
         definition.addPathDefinition("/doLogin", "anon");
         definition.addPathDefinition("/test/login", "anon");
-//        definition.addPathDefinition("/**", "authc");
         definition.addPathDefinition("/**", "jwt");  // 其他路径使用自定义过滤器
         return definition;
     }

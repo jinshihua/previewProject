@@ -80,18 +80,4 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         }
         return super.preHandle(request, response);
     }
-
-    @Override
-    protected boolean sendChallenge(ServletRequest request, ServletResponse response) {
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        httpResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
-        httpResponse.setContentType("application/json;charset=utf-8");
-        try {
-            String message = "Invalid token";
-            httpResponse.getWriter().write(message);
-        } catch (IOException e) {
-            System.err.println("sendChallenge error:" + e.getMessage());
-        }
-        return false;
-    }
 }
