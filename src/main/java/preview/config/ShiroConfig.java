@@ -36,10 +36,11 @@ public class ShiroConfig {
 
     @Bean
     public SessionManager sessionManager() {
-
-//        return new NoOpSessionManager(); // 使用 NoOpSessionManager 禁用 Shiro Session
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionValidationSchedulerEnabled(false);
+        sessionManager.setDeleteInvalidSessions(true);// 删除无效会话
+        sessionManager.setSessionIdCookieEnabled(false); // 禁止使用 Cookie 传递 SessionId
+        sessionManager.setSessionIdUrlRewritingEnabled(false); // 禁止 URL 重写
         return sessionManager;
     }
 
@@ -49,9 +50,10 @@ public class ShiroConfig {
         definition.addPathDefinition("/doLogin", "anon");
         definition.addPathDefinition("/test/login", "anon");
 //        definition.addPathDefinition("/**", "authc");
-        definition.addPathDefinition("/**", "client");  // 其他路径使用自定义过滤器
+        definition.addPathDefinition("/**", "jwt");  // 其他路径使用自定义过滤器
         return definition;
     }
+
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager sessionManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
