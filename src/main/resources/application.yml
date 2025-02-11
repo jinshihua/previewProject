@@ -10,3 +10,15 @@
 #      timeout: 30m # 30 分钟
 #      persistent: true
 #      store-dir: "session-data" # 可选的会话数据位置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=UTC  # 将 'mydatabase' 替换为你的数据库名称
+    username: root      # 将 'myusername' 替换为你的数据库用户名
+    password: 123456       # 将 'mypassword' 替换为你的数据库密码
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL 8+ 的驱动类名
+  jpa:
+    hibernate:
+      ddl-auto: update  #  方便开发时自动更新数据库结构，正式环境不要用
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect  # 指定数据库方言

@@ -8,7 +8,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import preview.pojo.User;
 import preview.token.JWTToken;
 import preview.util.JWTUtils;
-
 import java.util.UUID;
 
 public class MyRealm extends AuthorizingRealm {

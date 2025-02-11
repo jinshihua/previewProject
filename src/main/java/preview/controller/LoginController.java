@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/test")
 public class LoginController {
@@ -64,7 +63,7 @@ public class LoginController {
             HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
             // 创建 Cookie
             Cookie cookie = new Cookie("token", token);
-            // 设置 Cookie 的属性 (根据你的需求修改)
+            // 设置 Cookie 的属性
             cookie.setPath("/");  // Cookie 的有效路径
             cookie.setHttpOnly(true); // 避免客户端脚本访问 Cookie (安全)
             //cookie.setSecure(true); // 如果你使用 HTTPS，设置为 true
